@@ -4,14 +4,12 @@ import Navbar from './components/Navbar';
 import TextForm from './components/TextForm';
 import { useState } from 'react';
 import Alert from './components/Alert';
-//import About from './components/About';
-// import {
-//   BrowserRouter as Router,
-//   Routes,
-//   Switch,
-//   Route,
-//   Link
-// } from "react-router-dom";
+import About from './components/About';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
 
 function App() {
   const [mode, setMode] = useState('light');  // whether darkmode is enabled or not
@@ -28,7 +26,17 @@ function App() {
       }, 2000);
   }
 
-  const toggleMode = ()=>{
+  const removeBodyClasses = ()=>{
+    document.body.classList.remove('bg-light');
+    document.body.classList.remove('bg-dark');
+    document.body.classList.remove('bg-warning');
+    document.body.classList.remove('bg-danger');
+    document.body.classList.remove('bg-success');
+  }
+
+  const toggleMode = (cls)=>{
+    removeBodyClasses();
+    document.body.classList.add('bg-'+cls);
     if(mode === 'light')
     {
       setMode('dark');
@@ -46,22 +54,22 @@ function App() {
   }
   return (
     <>
-      {/* <Router> */}
+      <Router>
         <Navbar title="Ashish" aboutText="About Us" mode={mode} toggleMode = {toggleMode}/>
         <Alert alert={alert}/>
         <div className="container my-3">
-
-          <TextForm showAlert={showAlert} heading="Enter the text to analyze" mode={mode} />
-          {/* <Routes>
-            <Route path="/about" element={<About />} />
+        {/* <TextForm heading="Enter the text to analyze" mode={mode}/>
+        <About mode={mode}/> */}
+          <Routes>
+          
             <Route path="/" heading="Enter the text to analyze"  mode={mode} element={<TextForm />} />
+            <Route path="/about" element={<About mode={mode}/>} />         
             
-            
-          </Routes> */}
+          </Routes>
           
           
         </div>
-      {/* </Router> */}
+      </Router>
       
     </>
       
